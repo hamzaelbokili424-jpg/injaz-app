@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f8fa">
+<title>إنجاز | تحدّي العادات</title>
+<style>
+:root{--bg:#f5f6f8;--surface:#fff;--ink:#17191d;--muted:#858b95;--line:#e8eaf0;--blue:#3478f6;--blue2:#eaf1ff;--shadow:0 12px 35px rgba(22,32,50,.055);--green:#dff5e9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}button{cursor:pointer}
+.app{max-width:760px;margin:auto;min-height:100vh;padding:24px 18px 110px}
+header{display:flex;align-items:center;justify-content:space-between;margin:8px 2px 25px;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:47px;height:47px;border-radius:16px;background:#17191d;color:white;display:grid;place-items:center;font-size:23px;box-shadow:0 7px 16px #1112}
+.kicker{font-size:12px;color:var(--muted);letter-spacing:.3px}
+h1{font-size:clamp(26px,6vw,36px);line-height:1.2;margin:3px 0 0;font-weight:850;letter-spacing:-.7px}
+.menu{border:1px solid var(--line);background:#fff;border-radius:13px;width:43px;height:43px;font-size:22px;color:#5f6672}
+.hero{background:#17191d;color:#fff;border-radius:27px;padding:23px 22px 21px;box-shadow:0 15px 35px #1112;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:#ffffff0b;left:-65px;top:-90px}
+.hero-top{display:flex;justify-content:space-between;gap:10px;align-items:start;position:relative;z-index:1}
+.hero-label{font-size:13px;color:#b7bbc3}
+.hero h2{margin:5px 0 3px;font-size:25px;letter-spacing:-.4px}
+.hero p{margin:0;color:#b7bbc3;font-size:13px}
+.daybadge{border:1px solid #ffffff28;background:#ffffff0d;border-radius:15px;padding:10px 12px;text-align:center;min-width:75px}
+.daybadge strong{display:block;font-size:22px;line-height:1.2}
+.daybadge span{font-size:11px;color:#c4c8cf}
+.hero-progress{margin-top:23px;position:relative;z-index:1}
+.progress-caption{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;font-size:12px;color:#c4c8cf}
+.progress-caption strong{color:white;font-size:15px}
+.track{height:9px;background:#ffffff20;border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:#fff;border-radius:99px;transition:width .3s ease}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:17px}
+.controls button{border:1px solid #ffffff20;border-radius:13px;padding:11px;background:#ffffff0b;color:#fff;font-weight:650;font-size:13px}
+.card{background:var(--surface);border:1px solid #eef0f4;border-radius:22px;padding:17px;box-shadow:var(--shadow)}
+.setup{margin-top:16px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:27px 2px 12px}
+.section-head h3{font-size:20px;margin:0;font-weight:850}
+.section-head span{font-size:12px;color:var(--muted)}
+.setup label,.field label{display:block;font-size:13px;font-weight:750;margin-bottom:8px}
+.setup-grid{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+input,select{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;color:var(--ink);outline-color:var(--blue);min-width:0}
+.primary{background:var(--blue);color:#fff;border:0;border-radius:12px;padding:12px 16px;font-weight:750;white-space:nowrap}
+.soft{background:var(--blue2);color:var(--blue);border:0;border-radius:12px;padding:11px 14px;font-weight:750}
+.tasklist{display:grid;gap:11px}
+.task{display:flex;align-items:center;gap:13px;transition:background .2s,border .2s}
+.task .icon{flex:0 0 45px;width:45px;height:45px;border-radius:15px;background:#f1f3f6;display:grid;place-items:center;font-size:22px;filter:grayscale(.15)}
+.task-main{flex:1;min-width:0}
+.task-name{font-size:16px;font-weight:800;line-height:1.4;overflow-wrap:anywhere}
+.task-detail{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}
+.task .donebtn{min-width:94px;border:1px solid #e1e4ea;background:#f4f5f7;color:#25282e;border-radius:12px;padding:10px 11px;font-size:13px;font-weight:800}
+.task.done{background:#f0f1f3;border-color:#e1e3e7;box-shadow:none}
+.task.done .icon{background:#e2e4e8;filter:grayscale(1)}
+.task.done .task-name{color:#111;text-decoration:none}
+.task.done .task-detail{color:#666b73}
+.task.done .donebtn{background:#17191d;color:#fff;border-color:#17191d}
+.task.done .donebtn:before{content:"✓ ";font-weight:900}
+.task.done .donebtn{font-size:0}
+.task.done .donebtn:after{content:"تم الإنجاز";font-size:13px}
+.empty{padding:25px;text-align:center;color:var(--muted);font-size:14px}
+.bottom-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.bottom-actions button{padding:13px;border-radius:14px;font-weight:750}
+.motivation{margin-top:18px;border-radius:18px;padding:16px;background:#edf3ff;color:#1d4e9a;display:flex;align-items:center;gap:12px;line-height:1.55;font-weight:700;font-size:14px}
+.motivation .spark{width:37px;height:37px;flex:0 0 37px;background:#fff;border-radius:12px;display:grid;place-items:center;font-size:19px}
+.note{font-size:12px;color:var(--muted);line-height:1.65;text-align:center;margin:20px 5px}
+dialog{border:0;border-radius:24px;padding:23px;width:min(92vw,430px);box-shadow:0 22px 80px #0003;color:var(--ink)}
+dialog::backdrop{background:#10182780;backdrop-filter:blur(3px)}
+dialog h2{margin:0 0 18px;font-size:23px}
+.field{margin:12px 0}
+.dialog-actions{display:flex;gap:9px;margin-top:18px}
+.dialog-actions button{flex:1}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#17191d;color:#fff;padding:13px 18px;border-radius:14px;box-shadow:0 12px 30px #0002;font-size:14px;font-weight:700;transition:.25s;z-index:5;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:600px){.app{padding-top:35px}.hero{padding:28px}.task{padding:19px}.setup{padding:22px}}
+
+.coach-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:11px}.coach-tab{border:1px solid var(--line);border-radius:13px;padding:11px 6px;background:#fff;font-size:12px;font-weight:800;color:#555e69}.coach-tab.active{background:#17191d;color:#fff;border-color:#17191d}.coach-pane{margin-top:0}.coach-intro{display:flex;align-items:center;gap:10px;margin-bottom:14px}.coach-avatar{width:42px;height:42px;border-radius:14px;background:#17191d;color:white;display:grid;place-items:center;font-size:21px}.chat-log{display:flex;flex-direction:column;gap:9px;max-height:260px;overflow:auto;padding:4px 0 12px}.bubble{padding:12px 14px;border-radius:16px;font-size:14px;line-height:1.7;max-width:92%;white-space:pre-wrap}.bubble.bot{background:#f0f2f5;align-self:flex-start;border-bottom-right-radius:5px}.bubble.user{background:#17191d;color:#fff;align-self:flex-end;border-bottom-left-radius:5px}.quick-prompts{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 12px}.quick-prompts button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 10px;font-size:12px}.chat-form{display:flex;gap:8px}.chat-form input{flex:1;min-width:0}.chat-form .primary{padding-inline:14px}.fineprint,.panel-copy{font-size:12px;line-height:1.7;color:var(--muted)}.panel-title{margin:0 0 7px;font-size:19px}.upload-box{border:1.5px dashed #cbd0d8;background:#fafbfc;border-radius:17px;padding:23px 12px;display:flex;align-items:center;flex-direction:column;gap:7px;cursor:pointer;margin:15px 0}.upload-box small{color:var(--muted);font-size:11px}.preview-img{display:block;max-width:100%;max-height:320px;object-fit:contain;border-radius:15px;margin:10px auto}.field-label{display:block;font-size:13px;font-weight:750;margin:13px 0 7px}.full-btn{width:100%;margin-top:12px}.vision-result{margin-top:13px;padding:14px;background:#f0f3f7;border-radius:15px;font-size:14px;line-height:1.8}.milestone-list{display:grid;gap:10px;margin-top:13px}.milestone{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:16px;padding:13px}.milestone-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:#f0f2f5;font-size:21px;flex-shrink:0}.milestone.unlocked{border-color:#cbd9ff;background:#f7f9ff}.milestone.unlocked .milestone-icon{background:#17191d;color:white}.milestone strong{font-size:14px}.milestone p{margin:4px 0 0;font-size:12px;color:var(--muted);line-height:1.5}.milestone button{margin-right:auto;border:0;border-radius:10px;padding:8px 10px;background:#17191d;color:#fff;font-size:12px;white-space:nowrap}.milestone button:disabled{background:#e8ebef;color:#747b85}.milestone-feedback{font-size:13px;line-height:1.7;padding:12px;border-radius:13px;background:#f4f6f8;margin-top:10px}
+@media(max-width:390px){.coach-tabs{gap:5px}.coach-tab{font-size:11px}.milestone{padding:10px}.milestone button{padding:7px;font-size:11px}}
+.main-nav{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 0 20px;padding:6px;background:#e9ebef;border-radius:17px}.main-nav-btn{border:0;background:transparent;color:#68707b;padding:13px 10px;border-radius:12px;font-weight:850;font-size:14px}.main-nav-btn.active{background:#17191d;color:#fff;box-shadow:0 5px 14px #1112}.main-view[hidden],.coach-pane[hidden]{display:none!important}.coach-heading{display:flex;align-items:center;gap:13px;margin:8px 2px 17px}.coach-heading-icon{width:54px;height:54px;border-radius:18px;background:#17191d;color:white;display:grid;place-items:center;font-size:26px}.coach-heading h2{font-size:25px;margin:2px 0 4px}.coach-heading p{margin:0;color:var(--muted);font-size:13px}.coach-selector{margin-bottom:16px}.coach-style-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.coach-style{min-width:0;text-align:right;display:flex;flex-direction:column;align-items:flex-start;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:17px;padding:14px 12px;color:var(--ink);transition:.18s}.coach-style.active{border-color:#17191d;background:#f5f6f8;box-shadow:inset 0 0 0 1px #17191d}.style-emoji{font-size:25px}.coach-style strong{font-size:14px}.coach-style span:not(.style-emoji){font-size:12px;line-height:1.65;color:#646b76}.coach-style em{font-style:normal;font-size:11px;font-weight:750;line-height:1.6;color:#303640;margin-top:auto}.style-summary{margin-top:13px;padding:12px 14px;border-radius:13px;background:#f0f2f5;font-size:13px;line-height:1.7;font-weight:650}.coach-tabs{margin-top:18px}.coach-pane{margin-bottom:12px}@media(max-width:520px){.coach-style-grid{grid-template-columns:1fr}.coach-style{display:grid;grid-template-columns:35px 1fr;column-gap:10px;align-items:center}.coach-style .style-emoji{grid-row:span 3}.coach-style span:not(.style-emoji),.coach-style em{grid-column:2}.coach-style em{margin-top:0}}
+</style>
+</head>
+<body>
+<main class="app">
+<header>
+ <div class="brand"><div class="logo">✓</div><div><div class="kicker">كل يوم، خطوة للأفضل</div><h1>إنجاز</h1></div></div>
+ <button class="menu" id="settingsBtn" aria-label="الإعدادات">⋯</button>
+</header>
+<nav class="main-nav" aria-label="التنقل الرئيسي">
+ <button class="main-nav-btn active" data-view="challengeView">🎯 التحديات</button>
+ <button class="main-nav-btn" data-view="coachView">🤖 مدربك الذكي</button>
+</nav>
+<div id="challengeView" class="main-view">
+<section class="hero">
+ <div class="hero-top"><div><div class="hero-label">مساحة التحدّي الخاص بك</div><h2>اصنع عادتك. التزم بهدفك.</h2><p>تقدّمك يُبنى بإنجاز صغير كل يوم.</p></div><div class="daybadge"><strong id="dayNow">01</strong><span>من <b id="dayTotal">60</b> يوم</span></div></div>
+ <div class="hero-progress"><div class="progress-caption"><span>إنجاز مهام اليوم</span><strong id="dayPercent">0%</strong></div><div class="track"><div class="fill" id="dayFill"></div></div>
+ <div class="progress-caption" style="margin-top:15px"><span>التقدم في كامل التحدي</span><strong id="overallPercent">0%</strong></div><div class="track"><div class="fill" id="overallFill"></div></div></div>
+ <div class="controls"><button id="prevDay">→ اليوم السابق</button><button id="nextDay">اليوم التالي ←</button></div>
+</section>
+<section class="card setup">
+ <label for="duration">مدة التحدّي</label><div class="setup-grid"><select id="duration"><option value="7">7 أيام</option><option value="14">14 يومًا</option><option value="21">21 يومًا</option><option value="30">30 يومًا</option><option value="60" selected>60 يومًا</option><option value="90">90 يومًا</option><option value="custom">مدة مخصصة</option></select><button class="primary" id="applyDuration">تطبيق المدة</button></div>
+ <div id="customWrap" hidden style="margin-top:12px"><label for="customDays">عدد الأيام (1–365)</label><input id="customDays" type="number" min="1" max="365" value="60"></div>
+</section>
+<div class="section-head"><h3>مهام اليوم</h3><span id="taskSummary">0 من 5 مكتملة</span></div>
+<div class="tasklist" id="tasks"></div>
+<div class="bottom-actions"><button class="primary" id="addTask">＋ إضافة مهمة</button><button class="soft" id="resetDay">إعادة مهام اليوم</button></div>
+<div class="motivation" aria-live="polite"><div class="spark">✦</div><div id="motivationText">ابدأ بأول مهمة؛ كل خطوة تُحسب لك.</div></div>
+</div>
+<div id="coachView" class="main-view" hidden>
+<section class="coach-heading"><div class="coach-heading-icon">🤖</div><div><div class="kicker">مساحة مستقلة عن التحديات</div><h2>مدربك الذكي</h2><p>اختر أسلوب المدرب الذي يناسبك اليوم.</p></div></section>
+<section class="card coach-selector">
+ <div class="coach-style-grid">
+  <button class="coach-style" data-coach="strict" aria-pressed="false"><span class="style-emoji">🧭</span><strong>مدرب صارم</strong><span>واضح ومباشر، يركز على المسؤولية والخطوات المحددة دون إهانة أو ضغط مؤذٍ.</span><em>«كلام أقل، خطوة واضحة الآن.»</em></button>
+  <button class="coach-style active" data-coach="balanced" aria-pressed="true"><span class="style-emoji">⚖️</span><strong>مدرب متوسط</strong><span>متوازن وعملي؛ يجمع بين التشجيع والخطة الواقعية ومراجعة التقدم.</span><em>«تقدم ثابت، بخطة قابلة للتنفيذ.»</em></button>
+  <button class="coach-style" data-coach="kind" aria-pressed="false"><span class="style-emoji">🌿</span><strong>مدرب لطيف</strong><span>هادئ ومتفهم، يساعدك على البدء من جديد دون لوم عندما تتعب.</span><em>«خذ نفسًا، خطوة صغيرة تكفي.»</em></button>
+ </div>
+ <div id="coachStyleSummary" class="style-summary" aria-live="polite">المدرب المتوسط: سنضع خطة واقعية، ونراجع تقدمك دون مبالغة أو قسوة.</div>
+</section>
+<div class="coach-tabs"><button class="coach-tab active" data-pane="chatPane">💬 المحادثة</button><button class="coach-tab" data-pane="imagePane">📸 التصور البصري</button><button class="coach-tab" data-pane="milestonePane">🏆 المعالم</button></div>
+<section class="card coach-pane" id="chatPane">
+ <div class="coach-intro"><div class="coach-avatar">✦</div><div><strong>مدرب إنجاز</strong><div class="kicker">تشجيع عملي، خطوة بخطوة</div></div></div>
+ <div class="chat-log" id="chatLog" aria-live="polite"><div class="bubble bot">أهلًا بك! أنا رفيقك في هذه النسخة التجريبية. أخبرني كيف كان يومك، أو اختر سؤالًا أدناه. ✨</div></div>
+ <div class="quick-prompts"><button type="button" data-prompt="أحتاج إلى الحماس اليوم">أحتاج إلى الحماس</button><button type="button" data-prompt="ساعدني في وضع خطة بسيطة لليوم">خطّة اليوم</button><button type="button" data-prompt="لم ألتزم أمس، ماذا أفعل؟">فاتني يوم</button></div>
+ <form id="chatForm" class="chat-form"><input id="chatInput" maxlength="500" placeholder="اكتب رسالتك للمدرب…" aria-label="رسالتك للمدرب"><button class="primary" type="submit">إرسال ↑</button></form>
+ <p class="fineprint">نسخة تجريبية: الردود هنا جاهزة ومحلية وليست اتصالًا مباشرًا بخدمة ذكاء اصطناعي.</p>
+</section>
+<section class="card coach-pane" id="imagePane" hidden>
+ <h3 class="panel-title">تخيّل إمكاناتك</h3><p class="panel-copy">ارفع صورة واختر فكرة لإعداد تصور فني أو معاينة محلية. هذه الواجهة لا تتنبأ بتغير مظهرك، ولا تولّد صورة بالذكاء الاصطناعي دون ربط خدمة خارجية.</p>
+ <label class="upload-box" for="selfieInput"><span style="font-size:30px">＋</span><strong>اختر صورة من جهازك</strong><small>المعاينة تبقى داخل هذه الصفحة</small><input id="selfieInput" type="file" accept="image/*" hidden></label>
+ <div id="imagePreviewWrap" hidden><img id="imagePreview" alt="معاينة الصورة المختارة" class="preview-img"><button class="soft" id="removeImage" type="button">إزالة الصورة</button></div>
+ <label for="visionStyle" class="field-label">ما الذي تريد استكشافه؟</label><select id="visionStyle"><option>إطلالة سينمائية مستقبلية</option><option>تجربة تسريحة مختلفة</option><option>أفكار ملابس وألوان مناسبة</option><option>صورة رمزية تحفيزية</option></select>
+ <button id="visionBtn" class="primary full-btn" type="button">إنشاء وصف تخيلي</button><div id="visionResult" class="vision-result" hidden></div>
+</section>
+<section class="card coach-pane" id="milestonePane" hidden>
+ <h3 class="panel-title">معالم رحلتك</h3><p class="panel-copy">تفتح معالم صغيرة مع الوقت. التحديات الإضافية اختيارية، ويمكن تعديلها حسب قدرتك. لا يلزم إنجازها كي يستمر تقدمك.</p>
+ <div id="milestones" class="milestone-list"></div>
+</section>
+</div>
+<div class="note">يُحفظ تقدمك على هذا الجهاز تلقائيًا. علامة الإنجاز لا تشطب المهمة؛ تتحول البطاقة إلى لون داكن لتعرف أنها اكتملت.</div>
+</main>
+<dialog id="taskDialog"><form id="taskForm">
+<h2 id="dialogTitle">أضف مهمة جديدة</h2>
+<div class="field"><label for="taskName">اسم المهمة</label><input id="taskName" maxlength="80" required placeholder="مثلاً: الجري 15 دقيقة"></div>
+<div class="field"><label for="taskDetail">تفاصيل أو مدة (اختياري)</label><input id="taskDetail" maxlength="100" placeholder="مثلاً: بعد العصر"></div>
+<div class="dialog-actions"><button class="primary" type="submit">حفظ المهمة</button><button class="soft" type="button" id="cancelDialog">إلغاء</button></div>
+</form></dialog>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const initial=[
+{id:1,title:"الجري أو المشي",detail:"15 دقيقة حسب قدرتك",emoji:"🏃"},
+{id:2,title:"تمارين الجسم",detail:"حسب قدرتك؛ الراحة جزء من الخطة",emoji:"💪"},
+{id:3,title:"تناول طعام متوازن",detail:"وجبات كافية ومتنوعة",emoji:"🥗"},
+{id:4,title:"العناية الشخصية",detail:"نظافة الأسنان والجسم",emoji:"✦"},
+{id:5,title:"النوم مبكرًا",detail:"استهدف 8–10 ساعات نوم في سن المراهقة",emoji:"☾"}
+];
+let state={duration:60,day:1,tasks:initial,nextId:6,days:{}};
+try{let s=JSON.parse(localStorage.getItem("injazHabitAppV2"));if(s&&Array.isArray(s.tasks))state={...state,...s};}catch(e){}
+function dayData(){const k=String(state.day);if(!state.days[k])state.days[k]={};return state.days[k]}
+function isDone(t){return !!dayData()[t.id]}
+function doneCount(){return state.tasks.filter(isDone).length}
+function pct(){return state.tasks.length?Math.round(doneCount()/state.tasks.length*100):0}
+function overall(){let completed=0;for(let d=1;d<=state.duration;d++){const data=state.days[String(d)]||{};for(const t of state.tasks)if(data[t.id])completed++}const total=state.duration*state.tasks.length;return total?Math.round(completed/total*100):0}
+function save(){try{localStorage.setItem("injazHabitAppV2",JSON.stringify(state))}catch(e){}}
+let toastTimer;function toast(s){$("toast").textContent=s;$("toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("toast").classList.remove("show"),2400)}
+function render(){
+ $("tasks").replaceChildren();
+ if(!state.tasks.length){const e=document.createElement("div");e.className="card empty";e.textContent="لا توجد مهام بعد. أضف أول مهمة لتبدأ."; $("tasks").append(e)}
+ state.tasks.forEach(t=>{
+  const done=isDone(t),card=document.createElement("article");card.className="card task"+(done?" done":"");
+  const icon=document.createElement("div");icon.className="icon";icon.textContent=t.emoji||"✦";
+  const main=document.createElement("div");main.className="task-main";
+  const title=document.createElement("div");title.className="task-name";title.textContent=t.title;
+  const detail=document.createElement("div");detail.className="task-detail";detail.textContent=t.detail||"مهمة يومية";
+  main.append(title,detail);
+  const btn=document.createElement("button");btn.className="donebtn";btn.textContent=done?"تم الإنجاز":"تم الإنجاز";btn.setAttribute("aria-pressed",String(done));btn.setAttribute("aria-label",(done?"إلغاء إنجاز ":"تحديد إنجاز ")+t.title);
+  btn.addEventListener("click",()=>{const data=dayData();if(data[t.id])delete data[t.id];else data[t.id]=true;save();render();if(data[t.id]){$("motivationText").textContent=doneMessage();toast(pct()===100?"🏆 اكتملت جميع مهام اليوم!":"✓ تم تسجيل الإنجاز");}else{$("motivationText").textContent="لا بأس، يمكنك إنجازها عندما تكون مستعدًا.";toast("تم تحديث المهمة");}});
+  const edit=document.createElement("button");edit.className="del";edit.textContent="⋯";edit.title="خيارات المهمة";edit.setAttribute("aria-label","تعديل أو حذف "+t.title);
+  edit.addEventListener("click",()=>{const action=prompt("اكتب 1 لتعديل المهمة أو 2 لحذفها");if(action==="1"){openEdit(t)}else if(action==="2"&&confirm("حذف هذه المهمة من القائمة؟")){state.tasks=state.tasks.filter(x=>x.id!==t.id);for(const d of Object.values(state.days))delete d[t.id];save();render();toast("تم حذف المهمة")}})
+  card.append(icon,main,btn,edit);$("tasks").append(card);
+ });
+ const p=pct();$("dayPercent").textContent=p+"%";$("dayFill").style.width=p+"%";
+ if(state.tasks.length>0 && p===100){$("motivationText").textContent=dailyCompletionMessage()}
+ const op=overall();$("overallPercent").textContent=op+"%";$("overallFill").style.width=op+"%";
+ $("dayNow").textContent=String(state.day).padStart(2,"0");$("dayTotal").textContent=state.duration;
+ $("taskSummary").textContent=doneCount()+" من "+state.tasks.length+" مكتملة";
+ $("duration").value=[7,14,21,30,60,90].includes(Number(state.duration))?String(state.duration):"custom";
+ $("customWrap").hidden=$("duration").value!=="custom";$("customDays").value=state.duration;
+}
+function doneMessage(){if(pct()===100)return"🏆 مذهل! أنهيت كل مهام اليوم. فخورون بالتزامك — واصل غدًا.";return ["أحسنت! كل إنجاز صغير يقربك من هدفك. 💪","ممتاز، سجّلت خطوة جديدة في رحلتك. ✦","استمر بهذا الإيقاع؛ الثبات أهم من الكمال. 🔥","إنجازك محسوب! خذ نفسًا وواصل عندما تكون جاهزًا. ✓"][Math.floor(Math.random()*4)]}
+function dailyCompletionMessage(){const messages=[
+"🏆 أنهيت تحديات اليوم! تذكّر: لا تحتاج أن تكون مثاليًا، بل أن تعود وتحاول. غدًا فرصة جديدة لتتقدم خطوة أخرى.",
+"🔥 رائع! لقد أوفيت بوعدك لنفسك اليوم. استرح بفخر، وغدًا ابدأ من جديد — الاستمرار هو سرّ التغيير.",
+"✨ يوم مكتمل، ووعد جديد لنفسك. لا تقارن رحلتك بأحد؛ فقط اجعل خطوة الغد أفضل قليلًا من اليوم.",
+"💪 أحسنت! الإنجاز ليس أن تفعل كل شيء دفعة واحدة، بل أن تواصل بخطوات صغيرة. جهّز نفسك لتحدي الغد!",
+"🌟 لقد صنعت يومًا تفتخر به. خذ راحتك الآن، ثم عد غدًا بعقل هادئ وعزيمة متجددة.",
+"🚀 كل مهمة أنجزتها دليل على أنك تستطيع الالتزام. احتفل بتقدمك، فغدًا صفحة جديدة تنتظر أن تكتبها."
+];return messages[(state.day-1)%messages.length]}
+let editingId=null;
+function openAdd(){editingId=null;$("dialogTitle").textContent="أضف مهمة جديدة";$("taskName").value="";$("taskDetail").value="";$("taskDialog").showModal();$("taskName").focus()}
+function openEdit(t){editingId=t.id;$("dialogTitle").textContent="تعديل المهمة";$("taskName").value=t.title;$("taskDetail").value=t.detail||"";$("taskDialog").showModal()}
+$("duration").addEventListener("change",()=>{$("customWrap").hidden=$("duration").value!=="custom"});
+$("applyDuration").addEventListener("click",()=>{const n=$("duration").value==="custom"?Number($("customDays").value):Number($("duration").value);if(!Number.isInteger(n)||n<1||n>365){toast("اختر مدة بين يوم و365 يومًا");return}if(n<state.day&&!confirm("المدة الجديدة أقصر من اليوم الحالي. تطبيقها؟"))return;state.duration=n;state.day=Math.min(state.day,n);save();render();toast("تم ضبط التحدي على "+n+" يومًا")});
+$("prevDay").addEventListener("click",()=>{if(state.day<=1){toast("أنت في اليوم الأول");return}state.day--;save();render();$("motivationText").textContent="تعرض الآن مهام اليوم "+state.day+". يمكنك مراجعة إنجازاتك."});
+$("nextDay").addEventListener("click",()=>{if(state.day>=state.duration){toast("🎉 أكملت مدة التحدي!");$("motivationText").textContent="🎉 وصلت إلى نهاية التحدي! احتفل باستمرارك، ثم اختر مدة جديدة إن أحببت.";return}state.day++;save();render();$("motivationText").textContent="🌅 يوم جديد، وتحدٍّ جديد! مهام اليوم عادت جاهزة للإنجاز. لا تحمل همّ الكمال؛ ابدأ بمهمة واحدة فقط، ثم دع الزخم يكبر."});
+$("addTask").addEventListener("click",openAdd);$("cancelDialog").addEventListener("click",()=>$("taskDialog").close());
+$("taskForm").addEventListener("submit",e=>{e.preventDefault();const title=$("taskName").value.trim(),detail=$("taskDetail").value.trim();if(!title)return;if(editingId!==null){const t=state.tasks.find(x=>x.id===editingId);if(t){t.title=title;t.detail=detail}}else{state.tasks.push({id:state.nextId++,title,detail,emoji:"✦"})}save();render();$("taskDialog").close();toast(editingId!==null?"تم تعديل المهمة":"تمت إضافة المهمة");editingId=null});
+$("resetDay").addEventListener("click",()=>{if(!confirm("هل تريد إزالة علامات الإنجاز لهذا اليوم فقط؟"))return;state.days[String(state.day)]={};save();render();$("motivationText").textContent="تمت إعادة مهام اليوم فقط. يمكنك البدء من جديد.";toast("تمت إعادة مهام اليوم")});
+$("settingsBtn").addEventListener("click",()=>toast("يمكنك تغيير مدة التحدي وإدارة المهام من هذه الصفحة."));
+// Coach demo, image preview, and milestone tracking
+const milestoneDefs=[
+ {day:3,title:"بداية الالتزام",icon:"🌱",desc:"ثلاثة أيام من المحاولة — بداية تستحق التقدير."},
+ {day:7,title:"شارة الانضباط",icon:"🥉",desc:"أسبوع من التقدم، حتى لو لم يكن كل يوم مثاليًا."},
+ {day:10,title:"تحدي المعلم الاختياري",icon:"⚡",desc:"اختر تحديًا مناسبًا لقدرتك؛ لا توجد حاجة لإجبار نفسك."},
+ {day:21,title:"شارة الاستمرارية",icon:"🥈",desc:"ثلاثة أسابيع من بناء العادات خطوة خطوة."},
+ {day:30,title:"إنجاز الشهر",icon:"🏆",desc:"شهر من التجربة والتعلم عن نفسك."},
+ {day:60,title:"إكمال التحدي",icon:"👑",desc:"لقد وصلت إلى نهاية مرحلة مهمة من رحلتك."}
+];
+function milestoneProgress(){let best=1;for(let d=1;d<=state.duration;d++){const dat=state.days[String(d)]||{};const c=state.tasks.filter(t=>dat[t.id]).length;if(state.tasks.length&&c===state.tasks.length)best=Math.max(best,d+1)}return Math.min(state.duration,best)}
+function renderMilestones(){const wrap=$('milestones');if(!wrap)return;wrap.replaceChildren();const progress=milestoneProgress();milestoneDefs.filter(m=>m.day<=state.duration || m.day===10).forEach(m=>{const unlocked=progress>m.day||state.day>=m.day;const row=document.createElement('div');row.className='milestone'+(unlocked?' unlocked':'');const icon=document.createElement('div');icon.className='milestone-icon';icon.textContent=m.icon;const text=document.createElement('div');text.style.flex='1';const title=document.createElement('strong');title.textContent=m.title;const desc=document.createElement('p');desc.textContent=(unlocked?'🔓 متاح الآن — ':'🔒 يُفتح عند اليوم '+m.day+' — ')+m.desc;text.append(title,desc);row.append(icon,text);if(m.day===10){const btn=document.createElement('button');btn.textContent=unlocked?'عرض التحدي':'مقفل';btn.disabled=!unlocked;btn.onclick=()=>{const fb=document.getElementById('milestoneFeedback');fb.hidden=false;fb.textContent='⚡ لم أكن أتوقع أن أرى تقدمك بهذه السرعة! اختر تحديًا إضافيًا لطيفًا: امشِ 10 دقائق، أو جرّب تمرينًا مناسبًا لقدرتك، أو تعلّم مهارة صغيرة. هذا التحدي اختياري بالكامل.'};row.append(btn)}wrap.append(row)});let fb=document.getElementById('milestoneFeedback');if(!fb){fb=document.createElement('div');fb.id='milestoneFeedback';fb.className='milestone-feedback';fb.hidden=true;wrap.after(fb)}}
+document.querySelectorAll('.main-nav-btn').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.main-nav-btn').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.main-view').forEach(v=>v.hidden=v.id!==btn.dataset.view)}));
+document.querySelectorAll('.coach-tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.coach-tab').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.coach-pane').forEach(p=>p.hidden=p.id!==btn.dataset.pane)}));
+let selectedCoach=localStorage.getItem('injazCoachStyle')||'balanced';
+const coachStyles={strict:{name:'المدرب الصارم',summary:'المدرب الصارم: سنركز على الوضوح والمسؤولية وخطوة عملية، من دون إهانة أو ضغط غير صحي.',prefix:'بوضوح ومن دون لفّ ودوران: ',motivation:'اختر مهمة واحدة الآن، وحدد متى ستبدأ بها. لا تنتظر الظروف المثالية؛ اجعل الخطوة واقعية ونفّذها.'},balanced:{name:'المدرب المتوسط',summary:'المدرب المتوسط: سنضع خطة واقعية، ونراجع تقدمك دون مبالغة أو قسوة.',prefix:'خلّينا نكون عمليين: ',motivation:'اختر خطوة مهمة واحدة، ثم أضف خطوة ثانية إن كانت طاقتك تسمح. التوازن والاستمرار أهم من المبالغة.'},kind:{name:'المدرب اللطيف',summary:'المدرب اللطيف: سنتقدم بهدوء، ونتعامل مع الأيام الصعبة بتفهم ومن دون لوم.',prefix:'خذ الأمور بهدوء، أنت تتعلم: ',motivation:'لا تحتاج إلى إصلاح كل شيء اليوم. اختر أصغر خطوة مريحة لك، وامنح نفسك التقدير على المحاولة.'}};
+function setCoachStyle(style){if(!coachStyles[style])style='balanced';selectedCoach=style;try{localStorage.setItem('injazCoachStyle',style)}catch(e){}document.querySelectorAll('.coach-style').forEach(b=>{const active=b.dataset.coach===style;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});$('coachStyleSummary').textContent=coachStyles[style].summary;const first=$('chatLog').querySelector('.bubble.bot');if(first&&$('chatLog').children.length===1)first.textContent='أهلًا بك! أنا '+coachStyles[style].name+'. '+coachStyles[style].motivation+' ✨'}
+document.querySelectorAll('.coach-style').forEach(b=>b.addEventListener('click',()=>{setCoachStyle(b.dataset.coach);toast('تم اختيار '+coachStyles[selectedCoach].name)}));
+function coachReply(msg){const m=msg.toLowerCase();let answer;if(m.includes('حماس')||m.includes('تحفيز'))answer=coachStyles[selectedCoach].motivation;else if(m.includes('خطة')||m.includes('اليوم'))answer='خطة بسيطة لليوم: ١) اختر أهم مهمة واحدة. ٢) تحرك بطريقة مريحة تناسبك. ٣) تناول وجبات كافية ومتنوعة. ٤) جهّز وقتًا لنوم جيد. عدّل الخطة حسب طاقتك وظروفك.';else if(m.includes('فات')||m.includes('أمس')||m.includes('التزم'))answer=selectedCoach==='strict'?'فاتك يوم؛ لا تجعل يومًا واحدًا يتحول إلى أسبوع. راجع سبب التعثر وحدد عادة واحدة تعود إليها اليوم، دون محاولة تعويضها بإرهاق.':selectedCoach==='kind'?'لا بأس، الأيام الصعبة تحدث للجميع. لا تلُم نفسك؛ اختر عادة صغيرة تستطيع فعلها اليوم، واعتبرها بداية جديدة.':'يوم واحد لا يمحو ما تعلمته. افهم ما صعّب الالتزام، وعد اليوم بخطوة صغيرة واقعية دون عقاب أو إرهاق.';else if(m.includes('صورة')||m.includes('مظهر'))answer='يمكننا استكشاف أفكار إبداعية للملابس أو التسريحات أو الأسلوب الفني، لكن لا أستطيع التنبؤ بتغير شكلك أو ضمان نتيجة محددة. قيمتك لا تعتمد على صورة مستقبلية.';else answer=selectedCoach==='strict'?'حوّل هدفك إلى فعل محدد يمكن قياسه. ما الخطوة الصغيرة التي ستنفذها أولًا، ومتى ستبدأ؟':selectedCoach==='kind'?'شكرًا لأنك شاركتني. لا يلزم أن تحل كل شيء الآن. ما الخطوة الصغيرة التي تشعر أنها مناسبة لك اليوم؟':'شكرًا لأنك شاركتني. لنحوّل هدفك إلى خطوة صغيرة قابلة للتنفيذ اليوم. ما أصغر إجراء واقعي تستطيع البدء به الآن؟ تذكّر أن الراحة والتدرج جزء من النجاح.';return coachStyles[selectedCoach].prefix+answer}
+function addBubble(txt,who){const b=document.createElement('div');b.className='bubble '+who;b.textContent=txt;$('chatLog').append(b);$('chatLog').scrollTop=$('chatLog').scrollHeight}
+$('chatForm').addEventListener('submit',e=>{e.preventDefault();const v=$('chatInput').value.trim();if(!v)return;addBubble(v,'user');$('chatInput').value='';setTimeout(()=>addBubble(coachReply(v),'bot'),180)});document.querySelectorAll('[data-prompt]').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.prompt;addBubble(v,'user');setTimeout(()=>addBubble(coachReply(v),'bot'),180)}));
+let selectedImageUrl=null;$('selfieInput').addEventListener('change',e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(!file.type.startsWith('image/')){toast('اختر ملف صورة صالحًا');return}if(selectedImageUrl)URL.revokeObjectURL(selectedImageUrl);selectedImageUrl=URL.createObjectURL(file);$('imagePreview').src=selectedImageUrl;$('imagePreviewWrap').hidden=false;$('visionResult').hidden=true;});$('removeImage').addEventListener('click',()=>{if(selectedImageUrl)URL.revokeObjectURL(selectedImageUrl);selectedImageUrl=null;$('selfieInput').value='';$('imagePreview').removeAttribute('src');$('imagePreviewWrap').hidden=true;$('visionResult').hidden=true});$('visionBtn').addEventListener('click',()=>{const style=$('visionStyle').value;const result=$('visionResult');result.textContent=(selectedImageUrl?'تم اختيار صورتك للمعاينة. ':'')+'فكرة إبداعية: '+style+'. تخيّل إضاءة ناعمة وخلفية مرتبة وتعبيرًا واثقًا وألوانًا تعبّر عن شخصيتك. هذا وصف إلهامي فقط، وليس توقعًا لشكل جسمك أو وجهك مستقبلًا. لتوليد صورة جديدة فعلية، يلزم ربط خدمة توليد صور آمنة عبر خادم.';result.hidden=false});
+setCoachStyle(selectedCoach);
+renderMilestones();
+render();
+})();
+</script>
+</body>
+</html>
